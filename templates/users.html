@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Users</title>
+</head>
+<body>
+<div class="container">
+      Result:
+          <ul class="collection with-header">
+          {%  for user in users %}
+            <li class="collection-item"> {{user}}</li>
+          {% endfor %}
+          </ul>
+</div>
+</body>
+</html>
