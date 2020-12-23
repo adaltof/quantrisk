@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title> {% block title %}{% endblock %} </title>
+    <link rel="stylesheet" href="/static/css/simple.css">
+</head>
+<body>
+
+<!-- Side navigation -->
+<div class="sidenav">
+  <a href="/user">User</a>
+  <a href="/analysis">Analysis</a>
+  <a href="/threat">Threat Communities</a>
+  <a href="/asset">Assets</a>
+  <a href="/typeofloss">Types of Loss</a>
+</div>
+
+<div class="main">
+      {% block content %}{% endblock content %}
+</div>
+</body>
+</html>

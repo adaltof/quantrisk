@@ -1,0 +1,16 @@
+{%  extends "main_base.html" %}
+
+{%  block title %} User Page {% endblock %}
+
+{% block content %}
+
+    <main class="content">
+
+        <div class="main">
+              User: {{ user.name }}
+                  <p>
+              Score: {{ user.score }}
+        </div>
+
+    </main>
+{% endblock content%}

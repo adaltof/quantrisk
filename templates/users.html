@@ -1,17 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>List of Users</title>
-</head>
-<body>
-<div class="container">
-      Result:
+{%  extends "main_base.html" %}
+
+{%  block title %} Listing Users {% endblock %}
+
+{% block content %}
+
+    <main class="content">
+
+        <div class="main">
+              Result:
           <ul class="collection with-header">
           {%  for user in users %}
-            <li class="collection-item"> {{user}}</li>
+              <li class="collection-item"> {{user}} <a href="/user/{{ user }}">edit</a></li>
           {% endfor %}
           </ul>
-</div>
-</body>
-</html>
+        </div>
+
+    </main>
+{% endblock content%}
