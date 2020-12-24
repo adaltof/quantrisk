@@ -1,0 +1,67 @@
+{%  extends "main_base.html" %}
+
+{%  block title %} Listing Threat Communities {% endblock %}
+
+{% block content %}
+
+    <main class="content">
+
+        <div class="main">
+        {{ message }}
+          <table id="datalist">
+              <tr>
+                  <th>Threat Community</th>
+                  <th>Description</th>
+                  <th>TCAP Min</th>
+                  <th>TCAP Avg</th>
+                  <th>TCAP Max</th>
+                  <th>Actions</th>
+              </tr>
+          {% if threats|length %}
+              {%  for threat in threats %}
+                  <tr>
+                  <td>{{ threat.name }}</td>
+                  <td>{{ threat.description }}</td>
+                      <td> {{ threat.tcapmin }}</td>
+                      <td> {{ threat.tcapavg }}</td>
+                      <td> {{ threat.tcapmax }}</td>
+                      <td><a href="/threat/{{ threat.name }}"> edit </a>  - delete</td>
+                  </tr>
+              {% endfor %}
+          {% else %}
+              <tr><td colspan=3>No threats found</td></tr>
+          {%  endif %}
+          </table>
+        </div>
+        <h3> New Threat Community:</h3>
+        <div class="divform">
+            {% from "formbase.html" import render_field %}
+
+
+            <form action="/threat" method="POST">
+                 <dl>
+                    {{ render_field(form.name) }}
+                    {{ render_field(form.description) }}
+                    {{ render_field(form.tcapmin) }}
+                    {{ render_field(form.tcapavg) }}
+                    {{ render_field(form.tcapmax) }}
+                 </dl>
+             <!--   <label for="name">Threat Community Name</label>
+                <input type="text" id="name" name="name" placeholder="APT hax0r">
+
+                <label for="description">Description</label>
+                <input type="text" id="description" name="description" placeholder="quick description of group...">
+
+                <label for="tcapmin">TCAP Min</label>
+                <input type="number" id="tcapmin" name="tcapmin" placeholder="20">
+                 <label for="tcapavg">TCAP Avg</label>
+                <input type="number" id="tcapavg" name="tcapavg" placeholder="35">
+                 <label for="tcapmax">TCAP Max</label>
+                <input type="number" id="tcapmax" name="tcapmax" placeholder="60"> -->
+
+                <input type="submit" value="Add New Threat Community">
+            </form>
+        </div>
+
+    </main>
+{% endblock content%}

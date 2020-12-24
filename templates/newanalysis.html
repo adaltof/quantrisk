@@ -1,0 +1,35 @@
+{%  extends "main_base.html" %}
+
+{%  block title %} Adding New Quantification Analysis {% endblock %}
+
+{% block content %}
+
+    <main class="content">
+
+
+        <h3> Enter New Risk Quantification Data:</h3>
+        {{ message }}
+        <div class="divform">
+            {% from "formbase.html" import render_field %}
+
+            <form action="/analysisnew" method="POST">
+                 <dl>
+                    {{ render_field(form.name) }}
+                    {{ render_field(form.description) }}
+                    {{ render_field(form.lefmin) }}
+                    {{ render_field(form.lefavg) }}
+                    {{ render_field(form.lefmax) }}
+                    {{ render_field(form.tefmin) }}
+                    {{ render_field(form.tefavg) }}
+                    {{ render_field(form.tefmax) }}
+                    {{ render_field(form.vulnmin) }}
+                    {{ render_field(form.vulnavg) }}
+                    {{ render_field(form.vulnmax) }}
+
+                 </dl>
+                <input type="submit" value="Run Analysis">
+            </form>
+        </div>
+
+    </main>
+{% endblock content%}

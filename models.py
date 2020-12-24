@@ -42,14 +42,23 @@ class Analysis(db.Document):
     tefmin = db.DecimalField(min_value=0, precision=2)
     tefavg = db.DecimalField(min_value=0, precision=2)
     cfmax = db.DecimalField(min_value=0, precision=2)
-    cfmin = db.DecimalField(min_value=0, precision=2)
     cfavg = db.DecimalField(min_value=0, precision=2)
+    cfmin = db.DecimalField(min_value=0, precision=2)
+    vulnmin = db.IntField(min_value=0, max_value=100)
+    vulnavg = db.IntField(min_value=0, max_value=100)
+    vulnmax = db.IntField(min_value=0, max_value=100)
     tcapmax = db.IntField(min_value=0, max_value=100)
     tcapmin = db.IntField(min_value=0, max_value=100)
     tcapavg = db.IntField(min_value=0, max_value=100)
     rsmax = db.IntField(min_value=0, max_value=100)
     rsmin = db.IntField(min_value=0, max_value=100)
     rsavg = db.IntField(min_value=0, max_value=100)
+    curveimg = db.FileField()
+
+class TypeofLoss(db.Document):
+    name = db.StringField(required=True)
+    description = db.StringField(required=False)
+    datecreated = db.DateTimeField()
 
 
 if __name__ == 'main':

@@ -8,11 +8,24 @@
 
         <div class="main">
               Result:
-          <ul class="collection with-header">
-          {%  for user in users %}
-              <li class="collection-item"> {{user}} <a href="/user/{{ user }}">edit</a></li>
-          {% endfor %}
-          </ul>
+          <table id="datalist">
+              <tr>
+                  <th>User</th>
+                  <th>Email</th>
+                  <th>Actions</th>
+              </tr>
+          {% if users|length %}
+              {%  for user in users %}
+                  <tr>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.email }}</td>
+                      <td><a href="/user/{{ user.name }}"> edit </a>  - delete</td>
+                  </tr>
+              {% endfor %}
+          {% else %}
+              <tr><td colspan:3>No users found</td></tr>
+          {%  endif %}
+          </table>
         </div>
 
     </main>
