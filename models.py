@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_mongoengine import MongoEngine
+import datetime
 
 app = Flask(__name__)
 
@@ -34,7 +35,7 @@ class AssetTarget(db.Document):
 class Analysis(db.Document):
     name = db.StringField(required=True)
     description = db.StringField(required=False)
-    datecreated = db.DateTimeField()
+    datecreated = db.DateTimeField(default=datetime.datetime.utcnow)
     lefmax = db.DecimalField(min_value=0, precision=2)
     lefmin = db.DecimalField(min_value=0, precision=2)
     lefavg = db.DecimalField(min_value=0, precision=2)
@@ -53,7 +54,6 @@ class Analysis(db.Document):
     rsmax = db.IntField(min_value=0, max_value=100)
     rsmin = db.IntField(min_value=0, max_value=100)
     rsavg = db.IntField(min_value=0, max_value=100)
-    curveimg = db.FileField()
 
 class TypeofLoss(db.Document):
     name = db.StringField(required=True)

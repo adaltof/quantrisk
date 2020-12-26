@@ -10,7 +10,7 @@ class ThreatForm(Form):
 
 
 class AnalysisForm(Form):
-    name = StringField('Analysis Name', [ validators.DataRequired(), validators.Length(min=4, max=50)], render_kw={'placeholder': 'analysis1'})
+    name = StringField('Analysis Name', [validators.DataRequired(), validators.Length(min=4, max=50)], render_kw={'placeholder': 'analysis1'})
     description = StringField('Description', [validators.Length(min=1, max=120)])
     lefmin = DecimalField('LEF Min')
     lefavg = DecimalField('LEF Avg')
@@ -27,6 +27,6 @@ class AnalysisForm(Form):
     vulnmin = IntegerField('Vuln Min', [validators.NumberRange(min=0, max=100)])
     vulnavg = IntegerField('Vuln Avg', [validators.NumberRange(min=0, max=100)])
     vulnmax = IntegerField('Vuln Max', [validators.NumberRange(min=0, max=100)])
-    rsnmin = IntegerField('RS Min', [validators.NumberRange(min=0, max=100)])
+    rsmin = IntegerField('RS Min', [validators.NumberRange(min=0, max=100)])
     rsavg = IntegerField('RS Avg', [validators.NumberRange(min=0, max=100)])
     rsmax = IntegerField('RS Max', [validators.NumberRange(min=0, max=100)])

@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from models import User, ThreatCommunity, Analysis
 from forms import ThreatForm, AnalysisForm
 import json
+from datetime import date
 
 app = Flask(__name__)
 
@@ -33,11 +34,11 @@ def list_threats():
     message = ''
     if request.method == 'POST':
         if form.validate():
-            threat = ThreatCommunity(name=form.name.data, description=form.data['description'],tcapmin=form.data['tcapmin'],
-                                     tcapavg=form.data['tcapavg'], tcapmax=form.data['tcapmax'])
+            threat = ThreatCommunity(name=form.name.data, description=form.description.data, tcapmin=form.tcapmin.data,
+                                     tcapavg=form.tcapavg.data, tcapmax=form.tcapmax.data)
             #Check existing
             threatcheck = ThreatCommunity.objects(name=threat.name)
-            if threatcheck is not None:
+            if threatcheck is None:
                 threat.save()
                 message = 'Threat community added successfully.'
             else:
@@ -67,7 +68,7 @@ def threat_page(threat):
 def list_analysis():
     analysis = Analysis.objects().to_json()
     analysis_json = json.loads(analysis)
-    return render_template('analysis.html', users=analysis_json)
+    return render_template('analysis.html',setanalysis=analysis_json)
 
 
 @app.route('/analysisnew', methods=['GET', 'POST'])
@@ -76,13 +77,24 @@ def create_analysis():
     message = ''
     if request.method == 'POST':
         if form.validate():
-            analysis = Analysis(name=form.name.data, description=form.data['description'])
+            message = 'validating form'
+            today = date.today()
+            datecreated = today.strftime("%Y-%m-%d")
+            analysis = Analysis(name=form.name.data, description=form.description.data, datecreated=datecreated,
+                                lefmin=form.lefmin.data, lefavg=form.lefavg.data, lefmax=form.lefmax.data, tefmin=form.tefmin.data,
+                                tefavg=form.tefavg.data, tefmax=form.tefmax.data, cfmax=form.cfmax.data, cfavg=form.cfmax.data,
+                                cfmin=form.cfmin.data, vulnmax=form.vulnmax.data, vulnavg=form.vulnavg.data, vulnmin=form.vulnmin.data,
+                                tcapmax=form.tcapmax.data, tcapavg=form.tcapavg.data, tcapmin=form.tcapmin.data, rsmax=form.rsmax.data,
+                                rsavg=form.rsavg.data, rsmin=form.rsmin.data)
             # Check existing
             analysischeck = Analysis.objects(name=analysis.name)
-            if analysischeck is not None:
+            if analysischeck is None:
                 analysis.save()
-                message = 'Analyis added successfully successfully.'
+                message = 'Analysis added successfully.'
                 return redirect(url_for('list_analysis'))
+            else:
+                message = 'Analysis with same name already exists'
+                return render_template('newanalysis.html', form=form, message=message)
         else:
             message = 'We could not add the Analysis as requested.'
             return render_template('newanalysis.html', form=form, message=message)
